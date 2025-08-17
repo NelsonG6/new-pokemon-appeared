@@ -1,4 +1,4 @@
-name: OpenTofu CI/CD
+name: Run opentofu
 
 on:
   workflow_dispatch:
