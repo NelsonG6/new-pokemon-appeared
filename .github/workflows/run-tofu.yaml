@@ -3,6 +3,10 @@ name: Run opentofu
 on:
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build-and-deploy:
     environment: prod
