@@ -8,16 +8,16 @@ terraform {
     container_name       = "new-pokemon-appears"
     key                  = "prod.tfstate"
   }
-  # required_providers {
-  #   azurerm = {
-  #     source = "hashicorp/azurerm"
-  #     version = "4.40.0"
-  #   }
-  # }
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "4.40.0"
+    }
+  }
 }
 
 resource "null_resource" "null" {}
 
-# provider "azurerm" {
-
-# }
+provider "azurerm" {
+  client_id = "fe9dcc0e-101c-4291-af95-2ccadd9e5346"
+}
