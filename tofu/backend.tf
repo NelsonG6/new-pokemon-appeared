@@ -19,5 +19,6 @@ terraform {
 resource "null_resource" "null" {}
 
 provider "azurerm" {
+  features {}
   client_id = "fe9dcc0e-101c-4291-af95-2ccadd9e5346"
 }
