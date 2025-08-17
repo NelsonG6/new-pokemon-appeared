@@ -1,0 +1,24 @@
+name: OpenTofu CI/CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    environment: prod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.10.5
+      - name: OpenTofu Init
+        working-directory: ./tofu
+        run: tofu init
+      - name: OpenTofu Plan
+        working-directory: ./tofu
+        run: tofu plan -out=tfplan
+      - name: OpenTofu Apply
+        working-directory: ./tofu
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: tofu apply tfplan
