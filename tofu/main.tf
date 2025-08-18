@@ -1,7 +1,7 @@
-# resource "azurerm_resource_group" "rg" {
-#   name     = "new-pokemon-appears"
-#   location = "WestUS3"
-# }
+resource "azurerm_resource_group" "rg" {
+  name     = "new-pokemon-appears"
+  location = "WestUS3"
+}
 
 # resource "azurerm_service_plan" "sp" {
 #   name                = "${azurerm_resource_group.rg.name}-asp"
