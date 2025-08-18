@@ -64,7 +64,7 @@ jobs:
           echo "If any files would be modified by tofu format, \
           they will be listed below."
           if [ -d "tofu" ]; then cd terraform; fi
-          terraform fmt -check -recursive
+          tofu fmt -check -recursive
 
   mdl:
     name: markdown lint
