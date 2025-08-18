@@ -1,4 +1,5 @@
 terraform {
+  required_version = "1.10.5"
   backend "azurerm" {
     use_oidc             = true                                   # Can also be set via `ARM_USE_OIDC` environment variable.
     use_azuread_auth     = true                                   # Can also be set via `ARM_USE_AZUREAD` environment variable.
@@ -15,8 +16,6 @@ terraform {
     }
   }
 }
-
-resource "null_resource" "null" {}
 
 provider "azurerm" {
   features {}

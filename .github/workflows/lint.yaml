@@ -1,0 +1,83 @@
+permissions:
+  contents: read
+
+env:
+  lint_config_directory: ./.github/workflows/lint_config
+
+name: Lint
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  tflint:
+    runs-on: ubuntu-latest
+    name: tflint
+    env:
+      config_file_name: .tflint.hcl
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout source code
+
+      - name: Set up config file
+        run: mv $lint_config_directory/$config_file_path ./
+
+      - uses: actions/cache@v4
+        name: Cache plugin dir
+        with:
+          path: ~/.tflint.d/plugins
+          key: ${{ matrix.os }}-tflint-${{ hashFiles('.tflint.hcl') }}
+
+      - uses: terraform-linters/setup-tflint@v4
+        name: Setup TFLint
+        with:
+          tflint_version: v0.50.3
+
+      - name: Show version
+        run: tflint --version
+
+      - name: Init TFLint
+        run: |
+          if [ -d "tofu" ]; then cd tofu; fi
+          tflint --init
+        env:
+          # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Run TFLint
+        run: |
+          if [ -d "tofu" ]; then cd tofu; fi
+          tflint -f compact
+
+  tffmt:
+    name: terraform fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.10.5
+
+      - name: tofu fmt -recursive
+        run: |
+          echo "If any files would be modified by tofu format, \
+          they will be listed below."
+          if [ -d "tofu" ]; then cd tofu; fi
+          tofu fmt -check -recursive
+
+  mdl:
+    name: markdown lint
+    runs-on: ubuntu-latest
+    env:
+      config_file_name: .markdownlint.yaml
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout source code
+
+      - name: Set up config file
+        run: mv $lint_config_directory/$config_file_path ./
+
+      - uses: DavidAnson/markdownlint-cli2-action@v20
+        with:
+          globs: '**/*.md'
