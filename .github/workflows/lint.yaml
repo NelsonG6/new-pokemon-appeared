@@ -63,7 +63,7 @@ jobs:
         run: |
           echo "If any files would be modified by tofu format, \
           they will be listed below."
-          if [ -d "tofu" ]; then cd terraform; fi
+          if [ -d "tofu" ]; then cd tofu; fi
           tofu fmt -check -recursive
 
   mdl:
