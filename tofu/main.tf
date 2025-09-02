@@ -14,7 +14,7 @@ resource "azurerm_service_plan" "sp" {
 resource "azurerm_linux_web_app" "lwa" {
   name                = "${azurerm_resource_group.rg.name}-wa"
   resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_service_plan.rg.location
+  location            = azurerm_service_plan.sp.location
   service_plan_id     = azurerm_service_plan.sp.id
   site_config {
     application_stack {
