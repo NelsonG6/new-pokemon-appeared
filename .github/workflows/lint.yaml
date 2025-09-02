@@ -2,7 +2,7 @@ permissions:
   contents: read
 
 env:
-  lint_config_directory: ./.github/workflows/lint_config
+  lint_config_directory: ./.github/workflows/lint-config
 
 name: Lint
 on:
