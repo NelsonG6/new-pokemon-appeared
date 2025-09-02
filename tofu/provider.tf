@@ -19,7 +19,8 @@ terraform {
 
 provider "azurerm" {
   features {}
-  client_id       = "fe9dcc0e-101c-4291-af95-2ccadd9e5346"
-  subscription_id = "6507cd03-8896-4ac1-b320-b291724179c4"
-  use_oidc        = true
+  # client_id            = "fe9dcc0e-101c-4291-af95-2ccadd9e5346"
+  # subscription_id      = "6507cd03-8896-4ac1-b320-b291724179c4"
+  use_oidc             = true
+  oidc_token_file_path = "/mnt/workspace/spacelift.oidc"
 }
