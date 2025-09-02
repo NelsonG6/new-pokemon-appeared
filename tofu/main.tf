@@ -24,7 +24,7 @@ resource "azurerm_linux_web_app" "lwa" {
 }
 
 resource "azurerm_storage_account" "sa" {
-  name                     = "${azurerm_resource_group.rg.name}-sa"
+  name                     = "${replace(azurerm_resource_group.rg.name, "-", "")}sa"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
