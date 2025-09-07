@@ -1,0 +1,29 @@
+name: Push static site
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 'Az CLI login'
+        uses: azure/login@v2
+        with:
+          client-id: fe9dcc0e-101c-4291-af95-2ccadd9e5346
+          tenant-id: 4cda7170-067b-4002-af45-933da3207563
+          subscription-id: 6507cd03-8896-4ac1-b320-b291724179c4
+
+      - name: Build And Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: static-site
+          output_location: build

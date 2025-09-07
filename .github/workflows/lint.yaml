@@ -70,14 +70,12 @@ jobs:
     name: markdown lint
     runs-on: ubuntu-latest
     env:
-      config_file_name: .markdownlint.yaml
+      config_file_name: .markdownlint-cli2.jsonc
     steps:
       - uses: actions/checkout@v4
         name: Checkout source code
 
-      - name: Set up config file
-        run: mv $lint_config_directory/$config_file_path ./
-
       - uses: DavidAnson/markdownlint-cli2-action@v20
         with:
+          config: './.github/workflows/lint-config/.markdownlint-cli2.jsonc'
           globs: '**/*.md'
