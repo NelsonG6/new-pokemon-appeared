@@ -47,7 +47,7 @@ resource "azurerm_private_endpoint" "azurewebsites" {
   subnet_id           = azurerm_subnet.endpoints.id
   private_service_connection {
     name                           = "azurewebsites"
-    private_connection_resource_id = azurerm_storage_account.sa.id
+    private_connection_resource_id = azurerm_linux_function_app.fa.id
     subresource_names              = ["sites"]
     is_manual_connection           = false
   }
