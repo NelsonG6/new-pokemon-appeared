@@ -55,10 +55,11 @@ resource "azurerm_private_dns_zone_virtual_network_link" "mongo" {
 }
 
 resource "azurerm_private_endpoint" "cosmos" {
-  name                = "${azurerm_cosmosdb_account.db.name}-pe"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  subnet_id           = azurerm_subnet.endpoints.id
+  name                          = "${azurerm_cosmosdb_account.db.name}-pe"
+  resource_group_name           = azurerm_resource_group.rg.name
+  location                      = azurerm_resource_group.rg.location
+  subnet_id                     = azurerm_subnet.endpoints.id
+  custom_network_interface_name = "${azurerm_cosmosdb_account.db.name}-pe-nic"
   private_service_connection {
     name                           = "mongo"
     private_connection_resource_id = azurerm_cosmosdb_account.db.id

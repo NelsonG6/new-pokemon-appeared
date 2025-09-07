@@ -41,10 +41,11 @@ resource "azurerm_private_dns_zone_virtual_network_link" "azurewebsites" {
 }
 
 resource "azurerm_private_endpoint" "azurewebsites" {
-  name                = "${azurerm_linux_function_app.fa.name}-pe"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = "westus2"
-  subnet_id           = azurerm_subnet.endpoints.id
+  name                          = "${azurerm_linux_function_app.fa.name}-pe"
+  resource_group_name           = azurerm_resource_group.rg.name
+  location                      = "westus2"
+  subnet_id                     = azurerm_subnet.endpoints.id
+  custom_network_interface_name = "${azurerm_linux_function_app.fa.name}-pe-nic"
   private_service_connection {
     name                           = "azurewebsites"
     private_connection_resource_id = azurerm_linux_function_app.fa.id
