@@ -1,8 +1,3 @@
-import {
-  to = azurerm_cosmosdb_account.dba
-  id = "/subscriptions/6507cd03-8896-4ac1-b320-b291724179c4/resourceGroups/new-pokemon-appeared/providers/Microsoft.DocumentDB/databaseAccounts/new-pokemon-appeared-cdba"
-}
-
 resource "azurerm_cosmosdb_account" "dba" {
   name                       = "${azurerm_resource_group.rg.name}-cdba"
   resource_group_name        = azurerm_resource_group.rg.name
