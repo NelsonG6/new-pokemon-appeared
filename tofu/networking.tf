@@ -25,12 +25,12 @@ resource "azurerm_subnet" "endpoints" {
   name                 = "${azurerm_virtual_network.vnet.name}-pesubnet"
   virtual_network_name = azurerm_virtual_network.vnet.name
   resource_group_name  = azurerm_resource_group.rg.name
-  address_prefixes     = module.subnet_addrs.network_cidr_blocks["endpoints"]
+  address_prefixes     = [module.subnet_addrs.network_cidr_blocks["endpoints"]]
 }
 
 resource "azurerm_subnet" "asp" {
   name                 = "${azurerm_virtual_network.vnet.name}-aspsubnet"
   virtual_network_name = azurerm_virtual_network.vnet.name
   resource_group_name  = azurerm_resource_group.rg.name
-  address_prefixes     = module.subnet_addrs.network_cidr_blocks["asp"]
+  address_prefixes     = [module.subnet_addrs.network_cidr_blocks["asp"]]
 }
