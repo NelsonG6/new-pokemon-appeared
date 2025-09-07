@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "rg" {
-  name     = "new-pokemon-appears"
+  name = "new-pokemon-appears"
 }
 
 resource "azurerm_service_plan" "sp" {
@@ -7,7 +7,7 @@ resource "azurerm_service_plan" "sp" {
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   os_type             = "Linux"
-  sku_name            = "F1"
+  sku_name            = "B1"
 }
 
 resource "azurerm_linux_web_app" "lwa" {
