@@ -1,4 +1,4 @@
-resource "azurerm_cosmosdb_account" "db" {
+resource "azurerm_cosmosdb_account" "dba" {
   name                       = "${azurerm_resource_group.rg.name}-cdba"
   resource_group_name        = azurerm_resource_group.rg.name
   location                   = azurerm_resource_group.rg.location
@@ -25,7 +25,7 @@ resource "azurerm_cosmosdb_account" "db" {
     max_staleness_prefix    = 100000
   }
   geo_location {
-    location          = "eastus"
+    location          = "eastus2"
     failover_priority = 0
   }
 }
@@ -33,7 +33,7 @@ resource "azurerm_cosmosdb_account" "db" {
 resource "azurerm_cosmosdb_mongo_database" "mongo_db" {
   name                = "${azurerm_resource_group.rg.name}-db"
   resource_group_name = azurerm_resource_group.rg.name
-  account_name        = azurerm_cosmosdb_account.db.name
+  account_name        = azurerm_cosmosdb_account.dba.name
   throughput          = 400
 }
 
@@ -50,14 +50,14 @@ resource "azurerm_private_dns_zone_virtual_network_link" "mongo" {
 }
 
 resource "azurerm_private_endpoint" "cosmos" {
-  name                          = "${azurerm_cosmosdb_account.db.name}-pe"
+  name                          = "${azurerm_cosmosdb_account.dba.name}-pe"
   resource_group_name           = azurerm_resource_group.rg.name
   location                      = azurerm_resource_group.rg.location
   subnet_id                     = azurerm_subnet.endpoints.id
-  custom_network_interface_name = "${azurerm_cosmosdb_account.db.name}-pe-nic"
+  custom_network_interface_name = "${azurerm_cosmosdb_account.dba.name}-pe-nic"
   private_service_connection {
     name                           = "mongo"
-    private_connection_resource_id = azurerm_cosmosdb_account.db.id
+    private_connection_resource_id = azurerm_cosmosdb_account.dba.id
     subresource_names              = ["MongoDB"]
     is_manual_connection           = false
   }
