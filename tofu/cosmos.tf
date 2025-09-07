@@ -61,7 +61,7 @@ resource "azurerm_private_endpoint" "cosmos" {
   subnet_id           = azurerm_subnet.endpoints.id
   private_service_connection {
     name                           = "mongo"
-    private_connection_resource_id = azurerm_storage_account.sa.id
+    private_connection_resource_id = azurerm_cosmosdb_account.db.id
     subresource_names              = ["MongoDB"]
     is_manual_connection           = false
   }
@@ -70,3 +70,4 @@ resource "azurerm_private_endpoint" "cosmos" {
     private_dns_zone_ids = [azurerm_private_dns_zone.mongo.id]
   }
 }
+

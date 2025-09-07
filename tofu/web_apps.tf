@@ -43,7 +43,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "azurewebsites" {
 resource "azurerm_private_endpoint" "azurewebsites" {
   name                = "${azurerm_linux_function_app.fa.name}-pe"
   resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
+  location            = "westus2"
   subnet_id           = azurerm_subnet.endpoints.id
   private_service_connection {
     name                           = "azurewebsites"
