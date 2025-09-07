@@ -77,5 +77,5 @@ jobs:
 
       - uses: DavidAnson/markdownlint-cli2-action@v20
         with:
-          config: '$lint_config_directory/$config_file_name'
+          config: './.github/workflows/lint-config/.markdownlint-cli2.jsonc'
           globs: '**/*.md'
