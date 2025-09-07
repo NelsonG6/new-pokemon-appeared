@@ -37,11 +37,6 @@ resource "azurerm_cosmosdb_mongo_database" "mongo_db" {
   throughput          = 400
 }
 
-import {
-  to = azurerm_private_dns_zone.mongo
-  id = "/subscriptions/6507cd03-8896-4ac1-b320-b291724179c4/resourceGroups/new-pokemon-appeared/providers/Microsoft.Network/privateDnsZones/privatelink.mongo.cosmos.azure.com"
-}
-
 resource "azurerm_private_dns_zone" "mongo" {
   name                = "privatelink.mongo.cosmos.azure.com"
   resource_group_name = azurerm_resource_group.rg.name
